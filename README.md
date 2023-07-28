@@ -27,7 +27,7 @@ dependency automatically. First, make sure [bioconda] is set up properly with:
 ```
 Second, install or update your DrTransformer installation.
 ```sh
-  ~$ conda install drtransformer
+  ~$ conda install -c bioconda drtransformer
 ```
 
 ### Testing/Contributing
