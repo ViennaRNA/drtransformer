@@ -289,7 +289,6 @@ def clear_bpd_cache():
     BPD_CACHE = {}
 
 def get_bpd_cache(s1, s2):
-    global BPD_CACHE
     if (s1, s2) not in BPD_CACHE:
         assert (s2, s1) not in BPD_CACHE
         dist = RNA.bp_distance(s1, s2)
@@ -303,7 +302,6 @@ def get_bpd_i_cache(p, q):
     
     Note: Currently not in use.
     """
-    global BPD_I_CACHE
     def intersect(p, q):
         ptp = RNA.ptable(p)
         ptq = RNA.ptable(q)

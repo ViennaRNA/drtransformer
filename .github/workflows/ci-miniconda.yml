@@ -13,14 +13,14 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "macos-latest"]
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - uses: actions/checkout@v3
       - uses: conda-incubator/setup-miniconda@v2
         with:
+          miniforge-version: "latest"
           auto-update-conda: true
-          activate-environment: trafo
           python-version: ${{ matrix.python-version }}
           # The order of channes is in reverse! *Very important*
           channels: conda-forge,bioconda,defaults
@@ -31,7 +31,7 @@ jobs:
           conda list
       - name: Install viennarna
         run: |
-          conda install "viennarna==2.5.1"
+          conda install "viennarna>=2.6.4"
       - name: Install devtools
         run: |
           conda install flake8 pytest pytest-cov
@@ -50,3 +50,4 @@ jobs:
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         if: ${{ success() }}
+
