@@ -13,14 +13,13 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "macos-latest"]
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - uses: actions/checkout@v3
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
-          activate-environment: trafo
           python-version: ${{ matrix.python-version }}
           # The order of channes is in reverse! *Very important*
           channels: conda-forge,bioconda,defaults
@@ -38,6 +37,16 @@ jobs:
       - name: Install package 
         run: |
           python -m pip install .
-      - name: Test findpath
+      - name: Lint with flake8
         run: |
-          pytest tests/test_findpath.py -vs
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with pytest
+        run: |
+          pytest --cov=drtransformer tests/ --cov-report xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        if: ${{ success() }}
+
