@@ -64,7 +64,7 @@ def plot_nxy(stream, basename, formats,
 
     ax.set_ylabel('occupancy', fontsize = 11)
     ax.set_xlabel('time [s]', ha = 'center', va = 'center', fontsize = 11)
-    plt.legend()
+    plt.legend(facecolor='white', framealpha=1)
 
     # Add ticks for 1 minute, 1 hour, 1 day, 1 year
     #ax.axvline(x = 60, linewidth = 1, color = 'black', linestyle = '--') # 1 minute
@@ -169,9 +169,10 @@ def plot_simulation(trajectories, basename, formats,
     ax1t.xaxis.set_label_coords(0.7, 1.15)
     #ax1t.xaxis.set_label_coords(0.7, 1.25) # paper dims
     if not extlen:
-        ax2.legend()
+        ax2.legend(ncol=1, loc = "center right", frameon = True, facecolor = 'white', framealpha = 0.8)
     plt.suptitle(f'{title}', fontsize = 16, y=1.15)
     #plt.suptitle(f'{title}', fontsize = 16, y=1.25) # paper dims
+
 
     # Save a file.
     for ending in formats:
@@ -427,12 +428,24 @@ def main():
         args.molecule = args.name
     mplf = [f for f in args.formats if f != 'gr']
     if mplf:
-        with plt.style.context('seaborn-ticks'):
+        with plt.rc_context({
+            'axes.spines.right': True,
+            'axes.spines.top': True,
+            'axes.spines.left': True,
+            'axes.spines.bottom': True,
+            'axes.grid': False,
+            'xtick.direction': 'out',
+            'ytick.direction': 'out',
+            'xtick.major.size': 5,
+            'ytick.major.size': 5,
+            'font.size': 12,
+            'axes.titlesize': 14,
+            'axes.labelsize': 12}):
             plot_simulation(xydata, args.name, mplf, lint, logt, args.plim, 
-                    tlen = tlen, motifs = motifs, 
-                    extlen = args.exterior_length,
-                    title = args.molecule)
+                            tlen = tlen, motifs = motifs, 
+                            extlen = args.exterior_length,
+                            title = args.molecule)
 
- 
+
 if __name__ == '__main__':
     main()
