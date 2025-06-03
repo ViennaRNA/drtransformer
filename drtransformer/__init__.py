@@ -4,9 +4,9 @@
 # See README for instructions.
 #
 
-__version__ = "1.0"
+__version__ = "1.1"
 
-_MIN_VRNA_VERSION = "2.4.13"
+_MIN_VRNA_VERSION = "2.6.4"
 
 import logging
 logging.getLogger(__name__).addHandler(logging.NullHandler())
