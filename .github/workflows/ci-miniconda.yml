@@ -31,7 +31,7 @@ jobs:
           conda list
       - name: Install viennarna
         run: |
-          conda install "viennarna>=2.5.1"
+          conda install "viennarna==2.5.1"
       - name: Install devtools
         run: |
           conda install flake8 pytest pytest-cov

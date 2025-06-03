@@ -30,6 +30,9 @@ Second, install or update your DrTransformer installation.
   ~$ conda install drtransformer
 ```
 
+**Important:** Note that there is an issue when using the latest ViennaRNA version,
+a temporary solution for installations using conda is given in this [issue](https://github.com/ViennaRNA/drtransformer/issues/4#issuecomment-1669572536).
+
 ### Testing/Contributing
 To install the latest development version of DrTransformer, clone the
 repository and run:
