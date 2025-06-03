@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "macos-latest"]
-        python-version: ["3.9"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - uses: actions/checkout@v3
@@ -31,7 +31,7 @@ jobs:
           conda list
       - name: Install viennarna
         run: |
-          conda install "viennarna==2.5.1"
+          conda install "viennarna>=2.6.4"
       - name: Install devtools
         run: |
           conda install flake8 pytest pytest-cov
